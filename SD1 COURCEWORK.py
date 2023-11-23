@@ -52,6 +52,11 @@ class User:#introdusing class we can add multiple users for this code
             print("Do not Progress – module retriever")
             self.Retrievr_count+=1  
     
+    def updateinputs(self, pass_cr, defer_cr, fail_cr):
+        self.templist1=[pass_cr,defer_cr,fail_cr]
+        self.permelist1=[self.templist1]
+        print(self.permlist1)
+
     def histogram(self):
         data = {'Progress': self.Progress_count, 'Trailer': self.Trailer_count, 'Retrievr': self.Retrievr_count,
                 'Exclude': self.Exclude_count}
@@ -60,7 +65,7 @@ class User:#introdusing class we can add multiple users for this code
         win = GraphWin("Histogram Results", win_width, win_height)
         total_width = len(data) * (bar_width + 20)
         start_x = (win_width - total_width) / 2
-        colors = ['red', 'green', 'blue', 'yellow']
+        colors = ['red', 'green', 'blue', 'yellow']   #add some colour codes to match the code
         for i, (category, count) in enumerate(data.items()):
             
                 x1 = start_x + i * (bar_width + 20)
@@ -84,7 +89,6 @@ class User:#introdusing class we can add multiple users for this code
         total_label.setTextColor("black")
         total_label.draw(win)
 
-
         win.getMouse()
         win.close()
 
@@ -94,11 +98,13 @@ class User:#introdusing class we can add multiple users for this code
             if yorq.lower()== 'y':
                 self.getInput()
             elif yorq.lower()== 'q':
+                self.updateinputs()#new implimented 101
                 self.histogram()
             else:
                 print("Input only 'y' or 'q' depending on your need")
-                self.histogram()#all set for get histogrm
+                
         except Exception as e:
-            print(f"faced error!  {e}")           
+            print(f"faced error!  {e}")
+
 user2=User()
 user2.getInput() 
