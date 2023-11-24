@@ -59,12 +59,7 @@ class User:#introdusing class we can add multiple users for this code
     
     def UpdateList(self,pass_cr,defer_cr,fail_cr,VarForList):
         self.ListForUpdateExtend.append([VarForList, pass_cr, defer_cr, fail_cr])
-        #print(self.ListForUpdateExtend)
-
-
-
-
-
+        
     def histogram(self):
         data = {'Progress': self.Progress_count, 'Trailer': self.Trailer_count, 'Retrievr': self.Retrievr_count,
                 'Exclude': self.Exclude_count}
@@ -97,7 +92,6 @@ class User:#introdusing class we can add multiple users for this code
         total_label.setTextColor("black")
         total_label.draw(win)
 
-
         win.getMouse()
         win.close()
 
@@ -109,13 +103,20 @@ class User:#introdusing class we can add multiple users for this code
                 self.getInput()
             elif yorq.lower()== 'q':
                 self.UpdateList(self.pass_cr, self.defer_cr, self.fail_cr, self.VarForList)
-                print(self.ListForUpdateExtend)
+                self.PrintUpdateList()
                 self.histogram()
 
             else:
                 print("Input only 'y' or 'q' depending on your need")
+                self.getInput()
                 
         except Exception as e:
-            print(f"faced error!  {e}")           
+            print(f"faced error!  {e}")  
+
+    def PrintUpdateList (self):
+        print("Part 2 :")
+        for i in range(0,len(self.ListForUpdateExtend)):
+            print(f"{self.ListForUpdateExtend[i][0]} - {self.ListForUpdateExtend[i][1]}, {self.ListForUpdateExtend[i][2]}, {self.ListForUpdateExtend[i][3]}")
+
 user2=User()
 user2.getInput() 
