@@ -65,18 +65,26 @@ class User:#introdusing class we can add multiple users for this code
     def histogram(self):
         data = {'Progress': self.Progress_count, 'Trailer': self.Trailer_count, 'Retrievr': self.Retrievr_count,
                 'Exclude': self.Exclude_count}
-
+        TotalOutcomes= self.Progress_count+self.Trailer_count+self.Retrievr_count+self.Exclude_count
         win_width, win_height, bar_width = 1000, 600, 100
         win = GraphWin("Histogram Results", win_width, win_height)
+        
+        MyHeading = Text(Point(200, 50), 'Histogram Results')#cordinates of histogramresults
+        MyHeading.draw(win)
+        MyHeading.setSize(25)
+        MySubheading= Text(Point(200, 500),f"{TotalOutcomes} Outcomes in Total")
+        MySubheading.setSize(20)
+        MySubheading.draw(win) 
+        
         total_width = len(data) * (bar_width + 20)
         start_x = (win_width - total_width) / 2
         colors = ['red', 'green', 'blue', 'yellow']
         for i, (category, count) in enumerate(data.items()):
             
-                x1 = start_x + i * (bar_width + 20)
+                x1 = start_x + i * (bar_width + 8 )#space between bars
                 x2 = x1 + bar_width
-                y1 = win_height - count * 10 
-                y2 = win_height
+                y1 = win_height / 2 - count * 20 #getting center and /50 means growth of bars
+                y2 = win_height / 2 + count * 1   #make bar up
 
                 rect = Rectangle(Point(x1, y1), Point(x2, y2))
                 rect.setFill(colors[i])
@@ -86,7 +94,7 @@ class User:#introdusing class we can add multiple users for this code
                 count_label.setTextColor("black")
                 count_label.draw(win)
 
-                category_label = Text(Point((x1 + x2) / 2, y2 + 10), f"{category}")
+                category_label = Text(Point((x1 + x2) / 2, 350), f"{category}") #*****
                 category_label.setTextColor("black")
                 category_label.draw(win)
         total_count = sum(data.values())
@@ -133,7 +141,8 @@ class User:#introdusing class we can add multiple users for this code
                 lines = file.readlines()
                 for line in lines:
                     SavedData.append(tuple(line.strip().split("-")[1].split(" ,")))
-            print(SavedData)        
+            return("Part 3 :")
+            return(SavedData)        
         except FileNotFoundError:
             print("No saved data found.")
 
