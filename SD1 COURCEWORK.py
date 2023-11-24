@@ -6,6 +6,7 @@ class User:#introdusing class we can add multiple users for this code
         self.fail_cr=fail_cr
         self.ListForUpdateExtend=[] #for use in updatelist
         self.Exclude_count,self.Trailer_count, self.Progress_count,self.Retrievr_count=0,0,0,0
+        self.file = "progression_datasave.txt"
         #because faced error in when processing counts           
     def getInput(self):      
         while True:    
@@ -59,6 +60,7 @@ class User:#introdusing class we can add multiple users for this code
     
     def UpdateList(self,pass_cr,defer_cr,fail_cr,VarForList):
         self.ListForUpdateExtend.append([VarForList, pass_cr, defer_cr, fail_cr])
+        self.saveToFile(self) #save the file
         
     def histogram(self):
         data = {'Progress': self.Progress_count, 'Trailer': self.Trailer_count, 'Retrievr': self.Retrievr_count,
@@ -105,6 +107,7 @@ class User:#introdusing class we can add multiple users for this code
                 self.UpdateList(self.pass_cr, self.defer_cr, self.fail_cr, self.VarForList)
                 self.PrintUpdateList()
                 self.histogram()
+                self.readFromFile(self)# read file by here !
 
             else:
                 print("Input only 'y' or 'q' depending on your need")
@@ -117,6 +120,21 @@ class User:#introdusing class we can add multiple users for this code
         print("Part 2 :")
         for i in range(0,len(self.ListForUpdateExtend)):
             print(f"{self.ListForUpdateExtend[i][0]} - {self.ListForUpdateExtend[i][1]}, {self.ListForUpdateExtend[i][2]}, {self.ListForUpdateExtend[i][3]}")
+
+    def saveToFile(self,file):
+        with open(self.file, 'a') as file:
+            for item in self.ListForUpdateExtend:
+                file.write(','.join(map(str, item)) + '\n')
+
+    def readFromFile(self,file):
+        try:
+            with open(self.file, 'r') as file:
+                lines = file.readlines()
+                for line in lines:
+                    data = line.strip().split(',')
+                    print(f"{data[0]} - {data[1]}, {data[2]}, {data[3]}")
+        except FileNotFoundError:
+            print("No saved data found.")
 
 user2=User()
 user2.getInput() 
