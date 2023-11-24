@@ -4,6 +4,7 @@ class User:#introdusing class we can add multiple users for this code
         self.pass_cr=pass_cr
         self.defer_cr=defer_cr
         self.fail_cr=fail_cr
+        self.ListForUpdateExtend=[] #for use in updatelist
         self.Exclude_count,self.Trailer_count, self.Progress_count,self.Retrievr_count=0,0,0,0
         #because faced error in when processing counts           
     def getInput(self):      
@@ -41,17 +42,29 @@ class User:#introdusing class we can add multiple users for this code
     def main(self):
         if 0 <= self.pass_cr <= 40 and 0 <= self.defer_cr <= 40 and 80 <= self.fail_cr <= 120 :
             print("Exclude")
+            self.VarForList="Exclude"
             self.Exclude_count+=1
         elif self.pass_cr==100 and 0 <= self.defer_cr <= 20 and 0 <= self.fail_cr <= 20 :
             print("Progress (module trailer)")
+            self.VarForList="Progress (module trailer)"
             self.Trailer_count+=1
         elif self.pass_cr==120 :
             print("Progress")
+            self.VarForList="Progress"
             self.Progress_count+=1 
         else:
             print("Do not Progress – module retriever")
+            self.VarForList="Do not Progress – module retriever"
             self.Retrievr_count+=1  
     
+    def UpdateList(self,pass_cr,defer_cr,fail_cr,VarForList):
+        self.ListForUpdateExtend.append([VarForList, pass_cr, defer_cr, fail_cr])
+        #print(self.ListForUpdateExtend)
+
+
+
+
+
     def histogram(self):
         data = {'Progress': self.Progress_count, 'Trailer': self.Trailer_count, 'Retrievr': self.Retrievr_count,
                 'Exclude': self.Exclude_count}
@@ -92,12 +105,16 @@ class User:#introdusing class we can add multiple users for this code
         try: 
             yorq=(input("Enter 'y' for yes or 'q' to quit and view results:")) 
             if yorq.lower()== 'y':
+                self.UpdateList(self.pass_cr, self.defer_cr, self.fail_cr, self.VarForList)
                 self.getInput()
             elif yorq.lower()== 'q':
+                self.UpdateList(self.pass_cr, self.defer_cr, self.fail_cr, self.VarForList)
+                print(self.ListForUpdateExtend)
                 self.histogram()
+
             else:
                 print("Input only 'y' or 'q' depending on your need")
-                self.histogram()#all set for get histogrm
+                
         except Exception as e:
             print(f"faced error!  {e}")           
 user2=User()
