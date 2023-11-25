@@ -8,6 +8,7 @@ class User:#introdusing class we can add multiple users for this code
         self.Exclude_count,self.Trailer_count, self.Progress_count,self.Retrievr_count=0,0,0,0
         self.file = "progression_datasave.txt"
         #because faced error in when processing counts           
+    
     def getInput(self):      
         while True:    
             try:
@@ -18,8 +19,7 @@ class User:#introdusing class we can add multiple users for this code
                         self.fail_cr=int(input("Enter your total fail credits:"))
                         if self.checkRange(self.pass_cr,self.defer_cr,self.fail_cr):
                             self.inputRange(self.pass_cr,self.defer_cr,self.fail_cr)#send user data to the user input function
-                            break 
-                
+                            break      
             except ValueError:
                 print("Integer required")
     
@@ -79,8 +79,8 @@ class User:#introdusing class we can add multiple users for this code
         total_width = len(data) * (bar_width + 20)
         start_x = (win_width - total_width) / 2
         colors = ['red', 'green', 'blue', 'yellow']
+        
         for i, (category, count) in enumerate(data.items()):
-            
                 x1 = start_x + i * (bar_width + 8 )#space between bars
                 x2 = x1 + bar_width
                 y1 = win_height / 2 - count * 20 #getting center and /50 means growth of bars
@@ -101,7 +101,6 @@ class User:#introdusing class we can add multiple users for this code
         total_label = Text(Point(win_width / 2, win_height + 30), f"Total Count: {total_count}")
         total_label.setTextColor("black")
         total_label.draw(win)
-
         win.getMouse()
         win.close()
 
@@ -116,11 +115,9 @@ class User:#introdusing class we can add multiple users for this code
                 self.PrintUpdateList()
                 self.histogram()
                 self.readFromFile(self)# read file by here !
-
             else:
                 print("Input only 'y' or 'q' depending on your need")
-                self.getInput()
-                
+                self.getInput() 
         except Exception as e:
             print(f"faced error!  {e}")  
 
